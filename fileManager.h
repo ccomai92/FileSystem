@@ -16,6 +16,11 @@ class FileManager {
 public: 
     FileManager(); 
     ~FileManager(); 
+
+    bool createFile(string fileName, int blockNum); 
+    bool addBlock(string fileName, int blockNum); 
+    bool deleteFile(string fileName); 
+    bool deleteBlock(string fileName, int blockNum); 
     
 
 private: 

@@ -28,18 +28,18 @@ int main() {
 
                 if (command == "NF") {
                     cin >> fileName >> blockNum; 
-                    fileManager.createFile(fileName, blockNum); 
+                    fileManager->createFile(fileName, blockNum); 
                 } else if (command == "MF") {
                     cin >> fileName >> blockNum; 
-                    fileManager.addBlock(fileName, blockNum); 
+                    fileManager->addBlock(fileName, blockNum); 
 
                 } else if (command == "DF") {
                     cin >> fileName; 
-                    fileManager.deleteFile(fileName); 
+                    fileManager->deleteFile(fileName); 
 
                 } else if (command == "DB") {
                     cin >> fileName >> blockNum; 
-                    fileManager.deleteBlock(fileName, blockNum); 
+                    fileManager->deleteBlock(fileName, blockNum); 
 
                 }
             }
