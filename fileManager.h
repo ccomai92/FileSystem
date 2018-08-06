@@ -17,6 +17,10 @@ public:
     FileManager(); 
     ~FileManager(); 
     
+    CreateFile(string fileName, int numBlocks);
+    AddFile(string fileName, int numBlocks);
+    DeleteFile(string fileName);
+    DeleteBlocks(string fileName, int numBlocks);
 
 private: 
     vector<INode*> iNodes; 

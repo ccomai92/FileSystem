@@ -4,10 +4,14 @@
 class INode {
 public: 
     INode(); 
+    //
+    INode
     INode(char mode, unsigned int uid, unsigned int gid, 
             time_t aTime, time_t cTime, time_t mTime, 
             int size, int blockCount); 
     ~INode(); 
+
+    
 
 private: 
     char mode; // file or directory 
