@@ -17,15 +17,15 @@ public:
     FileManager(); 
     ~FileManager(); 
 
-    bool createFile(string fileName, int blockNum); 
-    bool addBlock(string fileName, int blockNum); 
-    bool deleteFile(string fileName); 
-    bool deleteBlock(string fileName, int blockNum); 
+    bool CreateFile(string fileName, int blockNum);
+    bool AddBlock(string fileName, int blockNum); 
+    bool DeleteFile(string fileName); 
+    bool DeleteBlock(string fileName, int blockNum); 
     
 
 private: 
     vector<INode*> iNodes; 
     vector<DiskDir*> dirs; 
     FileDisk* disk;     
-    int artificialID; 
+    int artificialID;
 }; 
