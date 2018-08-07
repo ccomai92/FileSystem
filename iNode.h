@@ -1,15 +1,18 @@
 #include <time.h> 
-#include <block.h>
+#include "block.h"
+
 
 class INode {
 public: 
     INode(); 
-    INode(int numBlocks, Block *blocks[]) {
+    INode(int iNodeID, int numBlocks, Block *blocks[]) {
+        this->iNodeID = iNodeID;
         this->blockCount = numBlocks;
         this->size = numBlocks;
-        for (int i = 0; i < numBlocks; i++) {
-            directBlocks[i] = blocks[i];
-        }
+        this->addBlock(numBlocks, blocks);
+        this->cTime = time(0);
+        
+
     }
 
     INode(char mode, unsigned int uid, unsigned int gid, 
@@ -17,9 +20,10 @@ public:
             int size, int blockCount); 
     ~INode(); 
 
-    void addBlock(int numBlocks, Block *blocks[]) {
+    bool addBlock(int numBlocks, Block *blocks[]) {
         int availableSize = 10 - this->size;
         int leftOver = numBlocks - availableSize;
+        this->aTime = time(0);
 
         for (int i = 0; i < availableSize; i++) {
             directBlocks[this->size++] = blocks[i];
@@ -30,10 +34,17 @@ public:
             
             }
         }
+        this->mTime = time(0);
+        return true;
     }
     
+    int getiNodeID() {
+        return this->iNodeID;
+    }
+
 
 private: 
+    int iNodeID;
     char mode; // file or directory 
     unsigned int uid; // user group
     unsigned int gid; // global user

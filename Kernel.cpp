@@ -1,7 +1,8 @@
 
 #include <string> 
 #include <iostream> 
-#include "fileManager.h"
+
+#include "FileManager.h"
 using namespace std;
 
 int main() {
@@ -28,18 +29,18 @@ int main() {
 
                 if (command == "NF") {
                     cin >> fileName >> blockNum; 
-                    fileManager->createFile(fileName, blockNum); 
+                    fileManager->CreateFile(fileName, blockNum); 
                 } else if (command == "MF") {
                     cin >> fileName >> blockNum; 
-                    fileManager->addBlock(fileName, blockNum); 
+                    fileManager->AddBlock(fileName, blockNum); 
 
                 } else if (command == "DF") {
                     cin >> fileName; 
-                    fileManager->deleteFile(fileName); 
+                    fileManager->DeleteFile(fileName); 
 
                 } else if (command == "DB") {
                     cin >> fileName >> blockNum; 
-                    fileManager->deleteBlock(fileName, blockNum); 
+                    fileManager->DeleteBlock(fileName, blockNum); 
 
                 }
             }
