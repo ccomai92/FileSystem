@@ -56,6 +56,12 @@ bool FileManager::AddBlock(string fileName, int numBlocks) {
 }
     
 bool FileManager::DeleteFile(string fileName) {
+    map<string, DiskDir*>::iterator it = this->dirs.find(fileName); 
+    if (it == this->dirs.end()) { // see if fileName is in the diskdirectory
+        cerr << "no such file exists" << endl; 
+        return false;
+    }
+    
     int id = this->dirs[fileName]->iNodeID;
     
     delete this->iNodes[id]; 
@@ -63,13 +69,18 @@ bool FileManager::DeleteFile(string fileName) {
     
     delete this->dirs[fileName]; 
     this->dirs.erase(fileName); 
+    return true; 
 }
 
 bool FileManager::DeleteBlock(string fileName, int numBlocks) {
-    /*
-        check fil existence
+    map<string, DiskDir*>::iterator it = this->dirs.find(fileName); 
+    if (it == this->dirs.end()) { // see if fileName is in the diskdirectory
+        cerr << "no such file exists" << endl; 
+        return false;
+    }
 
-        deallocate dis blocks from back.
-        modify access and modified time stamp.
-    */
+    int id = this->dirs[fileName]->iNodeID;
+    this->iNodes[id]->deleteBlocks(numBlocks); 
+
+    // update filesize in this->dirs 
 }
