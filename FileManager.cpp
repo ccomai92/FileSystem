@@ -1,64 +1,58 @@
 #include "FileManager.h"
 
-FileManager::FileManager() {
+FileManager::FileManager(): disk(new FileDisk()), artificialID(0) {}
 
+FileManager::~FileManager() {
+    delete this->disk; 
 }
-
-
-FileManager::~FileManager() {}
 
 
 bool FileManager::CreateFile(string fileName, int numBlocks) {
     // create new INode
-    //  if diskDir.contains(file)
-    //        return false;
-
-    DiskDir *diskDir = new DiskDir{artificialID++, numBlocks, fileName};
-    this->dirs.push_back(diskDir);   
-    // find diskblokcs from disk 
-    Block *blocks[numBlocks]; // = find available blocks and parameter is num of blocks and returns address of the blocks/
-    INode *iNode_ = new INode(artificialID++, numBlocks, blocks);
+    map<string, DiskDir*>::iterator it = this->dirs.find(fileName); 
+    if (it == this->dirs.end()) { // see if fileName is in the diskdirectory
+        return false;
+    }
+    // no fileName exists so make one and putinto directory  
+    DiskDir *diskDir = new DiskDir{this->artificialID, numBlocks};
+      // this should be later added 
     
+    // find diskblokcs from disk 
+    Block *blocks[numBlocks];
+    vector<Block*> blocks (numBlocks); 
+    if (!(this->disk.findBlocks(numBlocks, blocks))) {
+        return false;
+    } 
+
+    // create iNode and insert blocks for the iNode 
+    INode *iNode_ = new INode(numBlocks, blocks);
+    
+
+    // don't forget to update inodeSize 
+    this->iNodes[this->artificialID] = iNode; 
+    this->dirs[fileName] = diskDir; 
+    this->artificialID++; 
     // put these disk blocks into the iNode
     // Make Time Stamp for 3 of all times
     
 }
     
 bool FileManager::AddBlock(string fileName, int numBlocks) {
-    DiskDir *temp = this->search(fileName);
-    if (temp == NULL) {
+    map<string, DiskDir*>::iterator it = this->dirs.find(fileName); 
+    if (it == this->dirs.end()) { // see if fileName is in the diskdirectory
+        cerr << "no such file exists" << endl; 
         return false;
     }
-    Block *blocks[numBlocks]; // = find available blocks and parameter is num of blocks and returns address of the blocks/
-    INode *tempINode = this->search(temp->iNodeID);
 
-    if (tempINode == NULL) {
-        return false;
-    }
-    
-    if (tempINode->addBlock(numBlocks, blocks)) {
-        return true;
-    }
-    return false;
+    int id = this->dirs[fileName]->iNodeId; 
+    if (!(this->iNodes[id]->addBlock(numBlocks))) {
+        cerr << "failed to add Block" << endl; 
+        return false; 
+    }  
 
+    // update iNodeSize 
 
-    
-    // check if fileName exists or not
-    // if not return false:
-    // if yes:
-    /*
-        
-        find filename from disk directory 
-        go into that iNode 
-
-        check the size of array of blocks
-        while size of array of blocks is less 11:
-            just add block to the array
-
-        if oversiezed :
-            move to indirect array 
-        modify access and modified time stamp
-    */
+    return true; 
 }
     
 bool FileManager::DeleteFile(string fileName) {

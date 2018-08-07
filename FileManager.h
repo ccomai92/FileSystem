@@ -1,17 +1,12 @@
 #include <string> 
 #include <iostream> 
 #include <vector> 
+#include <map> 
 #include "iNode.h"
 #include "fileDisk.h"
 
 
 using namespace std; 
-
-struct DiskDir {
-    int iNodeID;
-    int size; 
-    string fileName; 
-};
 
 class FileManager {
 public: 
@@ -25,11 +20,19 @@ public:
     
 
 private: 
-    vector<INode*> iNodes; 
-    vector<DiskDir*> dirs; 
+
+    struct DiskDir {
+        int iNodeID;
+        int size; 
+        // string fileName; 
+    };
+
+    map<int, INode*> iNodes; 
+    map<string, DiskDir*> dirs; 
     FileDisk* disk;     
     int artificialID;
 
+    /*
     DiskDir* search(string fileName) {
         int size_ = dirs.size();
         for (int i = 0; i < size_; i++) {
@@ -48,5 +51,5 @@ private:
             }
         }
         return NULL;
-    }
+    }*/
 }; 
