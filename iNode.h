@@ -18,7 +18,7 @@ public:
     INode(char mode, unsigned int uid, unsigned int gid, 
             time_t aTime, time_t cTime, time_t mTime, 
             int size, int blockCount); 
-    ~INode(); 
+    ~INode(); // erase contents before deleted
 
     bool addBlock(int numBlocks, Block *blocks[]) {
         int availableSize = 10 - this->size;

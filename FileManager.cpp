@@ -56,13 +56,13 @@ bool FileManager::AddBlock(string fileName, int numBlocks) {
 }
     
 bool FileManager::DeleteFile(string fileName) {
-    /*
-    check if !fileName
-
-        deallocate disk blocks
-        del iNode
-        del disk directory
-    */
+    int id = this->dirs[fileName]->iNodeID;
+    
+    delete this->iNodes[id]; 
+    this->iNodes.erase(id); 
+    
+    delete this->dirs[fileName]; 
+    this->dirs.erase(fileName); 
 }
 
 bool FileManager::DeleteBlock(string fileName, int numBlocks) {
