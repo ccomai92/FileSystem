@@ -16,16 +16,10 @@ bool FileManager::CreateFile(string fileName, int numBlocks) {
     // no fileName exists so make one and putinto directory  
     DiskDir *diskDir = new DiskDir{this->artificialID, numBlocks};
       // this should be later added 
-    
-    // find diskblokcs from disk 
-    Block *blocks[numBlocks];
-    vector<Block*> blocks (numBlocks); 
-    if (!(this->disk.findBlocks(numBlocks, blocks))) {
-        return false;
-    } 
 
     // create iNode and insert blocks for the iNode 
-    INode *iNode_ = new INode(numBlocks, blocks);
+    INode *iNode = new INode();
+    iNode->addBlock(numBlocks, this->disk); 
     
 
     // don't forget to update inodeSize 
@@ -44,8 +38,8 @@ bool FileManager::AddBlock(string fileName, int numBlocks) {
         return false;
     }
 
-    int id = this->dirs[fileName]->iNodeId; 
-    if (!(this->iNodes[id]->addBlock(numBlocks))) {
+    int id = this->dirs[fileName]->iNodeID; 
+    if (!(this->iNodes[id]->addBlock(numBlocks, this->disk))) {
         cerr << "failed to add Block" << endl; 
         return false; 
     }  
@@ -80,7 +74,7 @@ bool FileManager::DeleteBlock(string fileName, int numBlocks) {
     }
 
     int id = this->dirs[fileName]->iNodeID;
-    this->iNodes[id]->deleteBlocks(numBlocks); 
+    this->iNodes[id]->deleteBlock(numBlocks, this->disk); 
 
     // update filesize in this->dirs 
 }

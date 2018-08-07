@@ -8,6 +8,9 @@ public:
             delete disk[i];
         }
     } 
+
+    bool findBlocks(int numBlocks, vector<Block*>& blocks); 
+
 private: 
     Block* disk[1000]; 
 }; 
