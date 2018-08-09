@@ -1,7 +1,8 @@
 #include "iNode.h"
 
-INode::INode(): cTime(time(0)), aTime(time(0)), mTime(time(0)), 
-                size(0), mode('f'), blockCount(0), 
+INode::INode(): mode('f'), uid("CSS430"), gid("CSS430"),
+                cTime(time(0)), aTime(time(0)), mTime(time(0)), 
+                size(0), blockCount(0), 
                 firstIndirectB(nullptr), secondIndirectB(nullptr),
                 thirdIndirectB(nullptr) {
     for (int i = 0; i < MAX_BLOCK; i++) {
@@ -9,8 +10,9 @@ INode::INode(): cTime(time(0)), aTime(time(0)), mTime(time(0)),
     }
 }
 
-INode::INode(char mode): cTime(time(0)), aTime(time(0)), mTime(time(0)), 
-                size(0), mode(mode), blockCount(0), 
+INode::INode(char mode): mode(mode), uid("CSS430"), gid("CSS430"), 
+                cTime(time(0)), aTime(time(0)), mTime(time(0)), 
+                size(0), blockCount(0), 
                 firstIndirectB(nullptr), secondIndirectB(nullptr),
                 thirdIndirectB(nullptr) {
     for (int i = 0; i < MAX_BLOCK; i++) {
@@ -21,8 +23,11 @@ INode::INode(char mode): cTime(time(0)), aTime(time(0)), mTime(time(0)),
 INode::~INode() {
     // erase contents in the blocks 
     this->firstIndirectB->erase(); 
+    this->firstIndirectB = nullptr; 
     this->secondIndirectB->erase(); 
+    this->secondIndirectB = nullptr; 
     this->thirdIndirectB->erase(); 
+    this->thirdIndirectB = nullptr; 
     
     for (int i = 0; i < MAX_BLOCK; i++) {
         this->directBlocks[i]->erase();     
@@ -34,7 +39,6 @@ INode::~INode() {
 bool INode::addBlock(int numBlocks, FileDisk* disk) {
     vector<Block*> blocks (numBlocks); 
     if (!(disk->findBlocks(numBlocks, blocks))) {
-        cerr << "Disk is full" << endl; 
         return false;
     } 
     
@@ -56,7 +60,20 @@ bool INode::addBlock(int numBlocks, FileDisk* disk) {
 }
 
 bool INode::deleteBlock(int numBlocks, FileDisk* disk) {
+    if (this->blockCount < numBlocks) {
+        cerr << "Illegal argument exception the file is smaller" << endl; 
+        return false; 
+    }
 
+    for (int i = 0; i < numBlocks; i++) {
+        int currentIndex = this->blockCount - 1 - i; 
+        this->directBlocks[currentIndex]->erase(); 
+        this->directBlocks[currentIndex] = nullptr; 
+    }
+
+    this->blockCount -= numBlocks; 
+    this->update(); 
+    return true; 
 }
 
 void INode::update() { 

@@ -1,7 +1,11 @@
+#ifndef INode_H
+#define INode_H 
+
 #include <time.h> 
 #include <vector> 
 #include <iostream> 
-#include "fileDisk.h" 
+#include <string>
+#include "fileDisk.h"  
 
 using namespace std; 
 const int MAX_BLOCK = 10; 
@@ -18,8 +22,8 @@ private:
     void update(); 
        
     char mode; // file or directory 
-    unsigned int uid; // user group
-    unsigned int gid; // global user
+    string uid; // user group
+    string gid; // global user
 
     time_t aTime; // use with time(&rawtime); 
     time_t cTime; // time creating 
@@ -32,3 +36,5 @@ private:
     Block* thirdIndirectB; 
 
 }; 
+
+#endif 

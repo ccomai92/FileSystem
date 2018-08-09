@@ -21,7 +21,9 @@ int main() {
                 fileManager = new FileManager(); 
             }
         } else { 
-            if (fileManager == nullptr) {
+            if (command == "quit") {
+                break;
+            } else if (fileManager == nullptr) {
                 cerr << "File Structure has not been built yet" << endl;
             } else {
                 string fileName; 

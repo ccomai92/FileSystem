@@ -10,8 +10,10 @@ public:
     Block();
     ~Block();
 
+    bool isEmpty();
+
+    bool write(string contents); 
     void erase(); 
-    bool addBlock(vector<Block*> &blocks); 
 private: 
     vector<int> index; // for indirect blocks 
     string contents; 

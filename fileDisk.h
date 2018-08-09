@@ -1,16 +1,18 @@
 #include "block.h" 
+#include <iostream>
+
+using namespace std; 
+
+const int MAX_NUM_BLOCK = 1000; 
 
 class FileDisk {
 public: 
     FileDisk(); 
-    ~FileDisk() {
-        for (int i = 0; i < 1000; i++) {
-            delete disk[i];
-        }
-    } 
+    ~FileDisk(); 
 
     bool findBlocks(int numBlocks, vector<Block*>& blocks); 
 
 private: 
-    Block* disk[1000]; 
+    Block* disk[MAX_NUM_BLOCK]; 
+    int blocksLeft; 
 }; 

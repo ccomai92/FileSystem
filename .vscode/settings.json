@@ -9,6 +9,7 @@
         "utility": "cpp",
         "typeinfo": "cpp",
         "*.tcc": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "iostream": "cpp"
     }
 }
