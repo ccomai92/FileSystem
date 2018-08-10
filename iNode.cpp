@@ -64,6 +64,7 @@ int INode::getSize() {
 
 // reference: 
 // https://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
+// modified by: Kris Kwon 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 const std::string INode::currentDateTime() {
     struct tm  tstruct;
