@@ -13,15 +13,16 @@ const int MAX_BLOCK = 10;
 class INode {
 public: 
     INode();  
-    INode(char mode); 
+    INode(string mode); 
     ~INode(); // erase contents before deleted
 
     bool addBlock(int numBlocks, FileDisk* disk); 
     bool deleteBlock(int numBlocks, FileDisk* disk); 
 private: 
     void update(); 
+    void dump(); 
        
-    char mode; // file or directory 
+    string mode; // file or directory 
     string uid; // user group
     string gid; // global user
 

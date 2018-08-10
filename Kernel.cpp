@@ -14,16 +14,22 @@ int main() {
     while(true) {
         cout << ">> "; 
         cin >> command;
-        if (command == "FM") {
+         if (command == "quit") {
+                break;
+        } else if (command == "ls") {
+            if (fileManager == nullptr) {
+                cerr << "File Structure has not been built yet" << endl;
+            } else {
+                fileManager->dump(); 
+            }
+        } else if (command == "FM") {
             if (fileManager != nullptr) {
                 cerr << "File Structure already opened" << endl;  
             } else {
                 fileManager = new FileManager(); 
             }
         } else { 
-            if (command == "quit") {
-                break;
-            } else if (fileManager == nullptr) {
+            if (fileManager == nullptr) {
                 cerr << "File Structure has not been built yet" << endl;
             } else {
                 string fileName; 

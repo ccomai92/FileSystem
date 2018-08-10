@@ -8,19 +8,25 @@ FileManager::~FileManager() {
 
 
 bool FileManager::CreateFile(string fileName, int numBlocks) {
-    // create new INode
+    // create new INode 
     map<string, DiskDir*>::iterator it = this->dirs.find(fileName); 
-    if (it == this->dirs.end()) { // see if fileName is in the diskdirectory
+    if (it != this->dirs.end()) { // see if fileName is in the diskdirectory
+        cerr << "file already exist" << endl; 
+        this->dump();
         return false;
     }
     // no fileName exists so make one and putinto directory  
-    DiskDir *diskDir = new DiskDir{this->artificialID, numBlocks};
       // this should be later added 
 
     // create iNode and insert blocks for the iNode 
     INode *iNode = new INode();
-    iNode->addBlock(numBlocks, this->disk); 
+    if (!iNode->addBlock(numBlocks, this->disk)) {
+        delete iNode; 
+        cout << "asdf" << endl; 
+        return false; 
+    } 
     
+    DiskDir *diskDir = new DiskDir{this->artificialID, numBlocks};
 
     // don't forget to update inodeSize 
     this->iNodes[this->artificialID] = iNode; 
@@ -28,7 +34,7 @@ bool FileManager::CreateFile(string fileName, int numBlocks) {
     this->artificialID++; 
     // put these disk blocks into the iNode
     // Make Time Stamp for 3 of all times
-    
+    return true; 
 }
     
 bool FileManager::AddBlock(string fileName, int numBlocks) {
@@ -55,12 +61,12 @@ bool FileManager::DeleteFile(string fileName) {
         cerr << "no such file exists" << endl; 
         return false;
     }
-    
+ 
     int id = this->dirs[fileName]->iNodeID;
     
-    delete this->iNodes[id]; 
-    this->iNodes.erase(id); 
-    
+    delete this->iNodes[id];   
+    this->iNodes.erase(id);
+
     delete this->dirs[fileName]; 
     this->dirs.erase(fileName); 
     return true; 
@@ -77,4 +83,11 @@ bool FileManager::DeleteBlock(string fileName, int numBlocks) {
     this->iNodes[id]->deleteBlock(numBlocks, this->disk); 
 
     // update filesize in this->dirs 
+}
+
+void FileManager::dump() {
+    for (map<string, DiskDir*>::iterator it = this->dirs.begin(); it != this->dirs.end(); ++it) {
+        cout << it->first << " " << it->second->iNodeID << endl; 
+    }
+
 }
