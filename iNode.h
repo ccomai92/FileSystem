@@ -20,7 +20,7 @@ public:
     string getUID(); 
     string getGID(); 
     int getSize(); 
-    time_t getTimeStamp(); 
+    const string currentDateTime(); 
 
     bool addBlock(int numBlocks, FileDisk* disk); 
     bool deleteBlock(int numBlocks, FileDisk* disk); 

@@ -91,7 +91,7 @@ void FileManager::dump() {
         INode* inode = this->iNodes[id];  
         cout << id << " " << inode->getType() << " " << inode->getUID()
              << " " << inode->getGID() << " " << inode->getSize() 
-            << " " << inode->getTimeStamp() << " " << it->first << endl; 
+            << " " << inode->currentDateTime() << " " << it->first << endl; 
         //cout << it->first << " " << it->second->iNodeID << endl; 
     }
 
