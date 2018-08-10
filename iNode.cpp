@@ -46,6 +46,26 @@ INode::~INode() {
 
 }
 
+string INode::getType() {
+    return this->mode; 
+}
+
+string INode::getUID() {
+    return this->uid;
+}
+
+string INode::getGID() {
+    return this->gid;
+}
+
+int INode::getSize() {
+    return this->size; 
+}
+
+time_t INode::getTimeStamp() {
+    return this->aTime; 
+}
+
 
 bool INode::addBlock(int numBlocks, FileDisk* disk) {
     vector<Block*> blocks; 
@@ -64,7 +84,7 @@ bool INode::addBlock(int numBlocks, FileDisk* disk) {
         return false; 
     }
 
-    this->dump(); 
+    // this->dump(); 
     this->blockCount += numBlocks;
     this->update(); 
     
@@ -77,15 +97,13 @@ bool INode::deleteBlock(int numBlocks, FileDisk* disk) {
         return false; 
     }
 
-    this->dump(); 
+    // this->dump(); 
  
     for (int i = 0; i < numBlocks; i++) {
         int currentIndex = this->blockCount - 1 - i;  
         this->directBlocks[currentIndex]->erase();
         this->directBlocks[currentIndex] = nullptr; 
     }
-
-    cout << "here" << endl; 
 
     this->blockCount -= numBlocks; 
     this->update(); 
@@ -95,7 +113,7 @@ bool INode::deleteBlock(int numBlocks, FileDisk* disk) {
 void INode::update() { 
     this->aTime = time(0); 
     this->mTime = time(0); 
-    this->size = 512 * this->blockCount; 
+    this->size = 524288 * this->blockCount; // 512K in bytes 
 }
 
 void INode::dump() {

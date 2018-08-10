@@ -87,7 +87,12 @@ bool FileManager::DeleteBlock(string fileName, int numBlocks) {
 
 void FileManager::dump() {
     for (map<string, DiskDir*>::iterator it = this->dirs.begin(); it != this->dirs.end(); ++it) {
-        cout << it->first << " " << it->second->iNodeID << endl; 
+        int id = it->second->iNodeID;
+        INode* inode = this->iNodes[id];  
+        cout << id << " " << inode->getType() << " " << inode->getUID()
+             << " " << inode->getGID() << " " << inode->getSize() 
+            << " " << inode->getTimeStamp() << " " << it->first << endl; 
+        //cout << it->first << " " << it->second->iNodeID << endl; 
     }
 
 }

@@ -16,6 +16,12 @@ public:
     INode(string mode); 
     ~INode(); // erase contents before deleted
 
+    string getType(); 
+    string getUID(); 
+    string getGID(); 
+    int getSize(); 
+    time_t getTimeStamp(); 
+
     bool addBlock(int numBlocks, FileDisk* disk); 
     bool deleteBlock(int numBlocks, FileDisk* disk); 
 private: 
