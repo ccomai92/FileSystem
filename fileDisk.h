@@ -1,3 +1,5 @@
+#ifndef FILE_DISK_H
+#define FILE_DISK_H
 #include "block.h" 
 #include <iostream>
 
@@ -16,3 +18,5 @@ private:
     Block* disk[MAX_NUM_BLOCK]; 
     int blocksLeft; 
 }; 
+
+#endif

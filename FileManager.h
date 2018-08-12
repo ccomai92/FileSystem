@@ -1,3 +1,6 @@
+#ifndef FILE_MANAGER_H
+#define FILE_MANAGER_H
+
 #include <string> 
 #include <iostream> 
 #include <vector> 
@@ -31,3 +34,4 @@ private:
     FileDisk* disk;     
     int artificialID;
 }; 
+#endif

@@ -22,7 +22,6 @@ bool FileManager::CreateFile(string fileName, int numBlocks) {
     INode *iNode = new INode();
     if (!iNode->addBlock(numBlocks, this->disk)) {
         delete iNode; 
-        cout << "asdf" << endl; 
         return false; 
     } 
     
