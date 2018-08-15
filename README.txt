@@ -5,9 +5,11 @@ Group: Kris Kwon (1534798), Yuun Lim()
 Assumptions:
 - A disk contains 1000 of 512K blocks (0 - 999)
     512K =  524288bytes
-- Permissions and file type should be -rwxr--r--
+- Permissions and file type should be '-rwxr--r--'
 - Use only direct blocks in INode
 - uid = CSS430, gid = CSS430 
+- Linear searching is used in searching disk for
+   empty blocks 
 
 Commands:
 - Format (initializes the File structure)
