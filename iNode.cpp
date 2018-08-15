@@ -45,6 +45,9 @@ INode::~INode() {
     }
 
 }
+int INode::getBlockCount() {
+    return this->blockCount;
+}
 
 string INode::getType() {
     return this->mode; 
@@ -81,9 +84,9 @@ const std::string INode::currentDateTime() {
 bool INode::addBlock(int numBlocks, FileDisk* disk) {
     vector<Block*> blocks; 
     if (!(disk->findBlocks(numBlocks, blocks))) {
+        cerr << "Not enough disk space" << endl; 
         return false;
     } 
-    
     int potentialCount = this->blockCount + numBlocks; 
 
     if (potentialCount <= MAX_BLOCK) { // 10 
@@ -92,8 +95,12 @@ bool INode::addBlock(int numBlocks, FileDisk* disk) {
         } 
     } else { 
         cerr << "File size is too big" << endl; 
+        for (int i = 0; i < numBlocks; i++) {
+            blocks[i]->erase(); 
+        }
         return false; 
     }
+
 
     // this->dump(); 
     this->blockCount += numBlocks;

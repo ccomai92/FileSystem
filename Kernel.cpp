@@ -1,4 +1,5 @@
 
+
 #include <string> 
 #include <iostream> 
 
@@ -14,8 +15,9 @@ int main() {
     while(true) {
         cout << ">> "; 
         cin >> command;
-         if (command == "quit") {
-                break;
+        if (command == "quit") {
+            fileManager->dumpAll();     
+            break;
         } else if (command == "ls") {
             if (fileManager == nullptr) {
                 cerr << "File Structure has not been built yet" << endl;

@@ -34,3 +34,24 @@ bool FileDisk::findBlocks(int numBlocks, vector<Block*>& blocks) {
     }
     return false; 
 }
+
+void FileDisk::dump() {
+    Block* block = this->disk[0]; 
+    cout << "["; 
+    if (block->isEmpty()) {
+        cout << "1"; 
+    } else {
+        cout << "0"; 
+    }
+
+    for (int i = 1; i < MAX_NUM_BLOCK; i++) {
+        block = this->disk[i];
+        if (block->isEmpty()) {
+            cout << ", 1"; 
+        } else {
+            cout << ", 0";
+        }
+    }
+
+    cout << "]" << endl; 
+}

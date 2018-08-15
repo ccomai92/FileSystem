@@ -74,14 +74,23 @@ bool FileManager::DeleteFile(string fileName) {
 bool FileManager::DeleteBlock(string fileName, int numBlocks) {
     map<string, DiskDir*>::iterator it = this->dirs.find(fileName); 
     if (it == this->dirs.end()) { // see if fileName is in the diskdirectory
-        cerr << "no such file exists" << endl; 
+        cerr << "No such file exists" << endl; 
         return false;
     }
 
     int id = this->dirs[fileName]->iNodeID;
     this->iNodes[id]->deleteBlock(numBlocks, this->disk); 
 
-    // update filesize in this->dirs 
+    this->dirs[fileName]->size = this->iNodes[id]->getSize(); 
+}
+
+void FileManager::dumpAll() {
+    cout << endl;
+    cout << "File List" << endl;
+    this->dump(); 
+    cout << endl;
+    cout << "Disk Space (0 = occupied, 1 = empty)" << endl; 
+    this->disk->dump(); 
 }
 
 void FileManager::dump() {
@@ -90,7 +99,7 @@ void FileManager::dump() {
         INode* inode = this->iNodes[id];  
         cout << id << " " << inode->getType() << " " << inode->getUID()
              << " " << inode->getGID() << " " << inode->getSize() 
-            << " " << inode->currentDateTime() << " " << it->first << endl; 
+             << " " << inode->getBlockCount() << " " << inode->currentDateTime() << " " << it->first << endl; 
         //cout << it->first << " " << it->second->iNodeID << endl; 
     }
 

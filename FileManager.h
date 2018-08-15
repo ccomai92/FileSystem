@@ -19,6 +19,7 @@ public:
     bool AddBlock(string fileName, int blockNum); 
     bool DeleteFile(string fileName); 
     bool DeleteBlock(string fileName, int blockNum); 
+    void dumpAll(); 
     void dump(); 
 
 private: 

@@ -16,6 +16,7 @@ public:
     INode(string mode); 
     ~INode(); // erase contents before deleted
 
+    int getBlockCount(); 
     string getType(); 
     string getUID(); 
     string getGID(); 

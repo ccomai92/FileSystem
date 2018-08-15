@@ -1,3 +1,3 @@
 #! /bin/bash 
 
-./FileSystem < command.txt > output.txt
+./FileSystem < command.txt

@@ -17,4 +17,4 @@ NF test901.txt 6
 MF test801.txt 4
 DF test201.doc
 NF test999.txt 11
-exit
+quit

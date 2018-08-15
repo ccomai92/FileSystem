@@ -13,6 +13,8 @@ public:
     ~FileDisk(); 
 
     bool findBlocks(int numBlocks, vector<Block*>& blocks); 
+    void dump(); 
+
 
 private: 
     Block* disk[MAX_NUM_BLOCK]; 
