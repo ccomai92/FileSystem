@@ -1,6 +1,6 @@
 CSS430: Operating System 
 Final Project: File System 
-Group: Kris Kwon (1534798), Yuun Lim() 
+Group: Kris Kwon (1534798), Yuun Lim(1239889) 
 -----------------------------------------
 Assumptions:
 - A disk contains 1000 of 512K blocks (0 - 999)
