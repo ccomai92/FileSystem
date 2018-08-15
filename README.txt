@@ -1,6 +1,6 @@
 CSS430: Operating System 
 Final Project: File System 
-Group: Kris Kwon (Gihwan KWon), Yuun Lim 
+Group: Kris Kwon (1534798), Yuun Lim() 
 -----------------------------------------
 Assumptions:
 - A disk contains 1000 of 512K blocks (0 - 999)
@@ -21,7 +21,10 @@ Commands:
 - Delete blocks 
     syntax = DB filename numblocks 
 
-Output:
+Output with test Commands:
+- Occupied disk block count = 36 
+- Overall block count listed in inodes = 36  
+
 ./RUN.sh
 >> FM
 >> NF test101.txt 8
